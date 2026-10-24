@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="sl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Unikatni izdelki 3D-tiska – praktični dodatki, organizatorji in dekoracija po meri.">
+  <title>LayerLab | Izdelki 3D-tiska</title>
+  <style>
+    :root {
+      --bg: #101010;
+      --panel: #191919;
+      --panel-2: #202020;
+      --text: #f6f4f0;
+      --muted: #aaa7a1;
+      --orange: #ff7a1a;
+      --orange-light: #ff9b4a;
+      --line: #33302d;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0; background: var(--bg); color: var(--text);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.55;
+    }
+    a { color: inherit; text-decoration: none; }
+    button, input, select { font: inherit; }
+    .wrap { width: min(1120px, calc(100% - 40px)); margin: 0 auto; }
+    header {
+      position: sticky; top: 0; z-index: 10; background: rgba(16,16,16,.92);
+      backdrop-filter: blur(14px); border-bottom: 1px solid var(--line);
+    }
+    .nav { min-height: 76px; display: flex; align-items: center; justify-content: space-between; gap: 24px; }
+    .brand { display: flex; align-items: center; gap: 11px; font-weight: 900; letter-spacing: -.04em; font-size: 1.35rem; }
+    .brand-mark { width: 37px; height: 37px; display: grid; place-items: center; background: var(--orange); color: #111; border-radius: 11px; font-weight: 950; }
+    .brand span:last-child { color: var(--orange); }
+    nav { display: flex; gap: 25px; color: var(--muted); font-size: .94rem; }
+    nav a:hover { color: var(--orange-light); }
+    .hero { padding: 78px 0 64px; overflow: hidden; }
+    .hero-grid { display: grid; grid-template-columns: 1.1fr .9fr; gap: 50px; align-items: center; }
+    .eyebrow { color: var(--orange); text-transform: uppercase; letter-spacing: .16em; font-size: .76rem; font-weight: 850; }
+    h1 { font-size: clamp(2.7rem, 6vw, 5.2rem); line-height: .99; letter-spacing: -.065em; margin: 18px 0 22px; }
+    h1 span { color: var(--orange); }
+    .hero p { color: var(--muted); max-width: 540px; font-size: 1.08rem; }
+    .actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 28px; }
+    .btn { display: inline-flex; align-items: center; justify-content: center; gap: 9px; border-radius: 10px; padding: 12px 18px; border: 1px solid transparent; font-weight: 800; cursor: pointer; transition: transform .18s, background .18s; }
+    .btn:hover { transform: translateY(-2px); }
+    .btn-primary { background: var(--orange); color: #17110b; }
+    .btn-primary:hover { background: var(--orange-light); }
+    .btn-secondary { border-color: #48433e; color: var(--text); background: transparent; }
+    .hero-art { min-height: 360px; border: 1px solid #39302a; border-radius: 26px; background: radial-gradient(circle at 55% 38%, #3a2112 0, #1d1713 38%, #151515 72%); display: grid; place-items: center; position: relative; overflow: hidden; }
+    .hero-art::before, .hero-art::after { content: ""; position: absolute; border: 1px solid rgba(255,122,26,.18); border-radius: 50%; width: 290px; height: 290px; }
+    .hero-art::after { width: 390px; height: 390px; }
+    .cube { position: relative; z-index: 1; width: 150px; height: 150px; transform: rotate(-12deg) skewY(5deg); background: linear-gradient(135deg, #ff9a43, #d94d05); border-radius: 20px; box-shadow: 24px 30px 0 #8f350c, 0 35px 65px #0009; }
+    .cube::before { content: ""; position: absolute; inset: 16px; border: 2px dashed #311707; border-radius: 12px; opacity: .75; }
+    .cube::after { content: "3D"; position: absolute; inset: 0; display: grid; place-items: center; color: #351707; font-size: 3.3rem; font-weight: 950; letter-spacing: -.08em; }
+    .art-tag { position: absolute; z-index: 2; bottom: 22px; right: 22px; background: #171717; border: 1px solid #43362d; padding: 9px 13px; border-radius: 9px; color: #f2d8c5; font-size: .82rem; }
+    .trust { border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); background: #141414; }
+    .trust-row { display: grid; grid-template-columns: repeat(3,1fr); gap: 18px; padding: 22px 0; }
+    .trust-item { display: flex; align-items: center; justify-content: center; gap: 10px; color: #d4d0ca; font-size: .92rem; }
+    .trust-item b { color: var(--orange); font-size: 1.15rem; }
+    section { padding: 76px 0; }
+    .section-head { display: flex; align-items: end; justify-content: space-between; gap: 20px; margin-bottom: 28px; }
+    h2 { font-size: clamp(2rem, 4vw, 3rem); line-height: 1.05; letter-spacing: -.045em; margin: 9px 0 0; }
+    .section-head p { color: var(--muted); max-width: 410px; margin: 0; }
+    .toolbar { display: flex; flex-wrap: wrap; gap: 12px; margin-bottom: 25px; }
+    .search-box { flex: 1 1 240px; position: relative; }
+    .search-box span { position: absolute; left: 14px; top: 50%; transform: translateY(-50%); color: var(--muted); }
+    .search-box input, .sort-select { width: 100%; background: #191919; color: var(--text); border: 1px solid #393633; border-radius: 10px; padding: 12px 14px; outline: none; }
+    .search-box input { padding-left: 42px; }
+    .search-box input:focus, .sort-select:focus { border-color: var(--orange); }
+    .sort-select { width: auto; min-width: 175px; }
+    .filters { display: flex; flex-wrap: wrap; gap: 9px; margin-bottom: 28px; }
+    .filter { border: 1px solid #393633; background: transparent; color: #c5c0b9; border-radius: 999px; padding: 8px 14px; cursor: pointer; }
+    .filter:hover, .filter.active { color: #17110b; background: var(--orange); border-color: var(--orange); font-weight: 800; }
+    .products { display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 18px; }
+    .product { background: var(--panel); border: 1px solid #302e2b; border-radius: 17px; overflow: hidden; transition: transform .2s, border-color .2s; }
+    .product:hover { transform: translateY(-4px); border-color: #6c4025; }
+    .product-visual { height: 190px; display: grid; place-items: center; position: relative; background: radial-gradient(circle at 50% 40%, #332116, #201b17 62%, #191919); }
+    .product-visual .emoji { font-size: 4.3rem; filter: drop-shadow(0 12px 12px #0008); }
+    .product-visual .number { position: absolute; top: 13px; left: 13px; font-size: .72rem; color: #ffbd8b; background: #2b1c12; border: 1px solid #59341d; border-radius: 7px; padding: 5px 8px; }
+    .product-body { padding: 18px; }
+    .category-label { color: var(--orange); font-size: .73rem; font-weight: 850; text-transform: uppercase; letter-spacing: .1em; }
+    .product h3 { margin: 7px 0 7px; font-size: 1.12rem; }
+    .product p { color: var(--muted); font-size: .9rem; margin: 0 0 17px; min-height: 44px; }
+    .product-bottom { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+    .price { font-weight: 900; font-size: 1.12rem; }
+    .price small { color: var(--muted); font-weight: 500; font-size: .72rem; }
+    .add-btn { border: 1px solid #5c351e; background: #2b1c12; color: var(--orange-light); border-radius: 9px; padding: 8px 11px; cursor: pointer; font-weight: 800; }
+    .add-btn:hover { background: var(--orange); color: #17110b; }
+    .empty { grid-column: 1/-1; text-align: center; border: 1px dashed #47413b; border-radius: 15px; padding: 45px 20px; color: var(--muted); }
+    .custom { background: linear-gradient(120deg, #21170f, #171514 70%); border-top: 1px solid #39271a; border-bottom: 1px solid #39271a; }
+    .custom-grid { display: grid; grid-template-columns: 1fr auto; align-items: center; gap: 30px; }
+    .custom p { color: #c1b6ac; max-width: 650px; margin-bottom: 0; }
+    .about-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 18px; margin-top: 30px; }
+    .about-card { border: 1px solid var(--line); background: var(--panel); border-radius: 15px; padding: 22px; }
+    .about-card .icon { font-size: 1.65rem; }
+    .about-card h3 { margin: 12px 0 7px; }
+    .about-card p { color: var(--muted); font-size: .92rem; margin: 0; }
+    footer { border-top: 1px solid var(--line); padding: 30px 0; color: var(--muted); font-size: .88rem; }
+    .footer-row { display: flex; justify-content: space-between; align-items: center; gap: 20px; flex-wrap: wrap; }
+    .contact-link { color: var(--orange-light); }
+    .notice { position: fixed; right: 20px; bottom: 20px; z-index: 20; background: #f8f2eb; color: #19120d; border-radius: 12px; padding: 13px 17px; box-shadow: 0 10px 35px #0008; max-width: min(340px, calc(100% - 40px)); opacity: 0; transform: translateY(12px); pointer-events: none; transition: .2s; font-weight: 700; }
+    .notice.show { opacity: 1; transform: translateY(0); }
+    @media (max-width: 800px) {
+      .hero-grid { grid-template-columns: 1fr; gap: 30px; }
+      .hero { padding-top: 54px; }
+      .hero-art { min-height: 280px; }
+      .products { grid-template-columns: repeat(2,minmax(0,1fr)); }
+      .section-head { align-items: start; flex-direction: column; }
+      .custom-grid { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 560px) {
+      .wrap { width: min(100% - 28px, 1120px); }
+      .nav { min-height: 66px; }
+      nav { gap: 13px; font-size: .82rem; }
+      nav a:nth-child(2) { display: none; }
+      .brand { font-size: 1.12rem; }
+      .hero-art { min-height: 240px; }
+      .cube { width: 115px; height: 115px; }
+      .cube::after { font-size: 2.6rem; }
+      .trust-row { grid-template-columns: 1fr; gap: 12px; }
+      .trust-item { justify-content: flex-start; }
+      section { padding: 58px 0; }
+      .products, .about-grid { grid-template-columns: 1fr; }
+      .product-visual { height: 175px; }
+      .sort-select { flex: 1; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="wrap nav">
+      <a class="brand" href="#domov" aria-label="LayerLab – domov"><span class="brand-mark">L</span><span>Layer<span>Lab</span></span></a>
+      <nav aria-label="Glavna navigacija">
+        <a href="#izdelki">Izdelki</a>
+        <a href="#o-nas">O nas</a>
+        <a href="#kontakt">Kontakt</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero" id="domov">
+      <div class="wrap hero-grid">
+        <div>
+          <div class="eyebrow">Ideje, plast za plastjo</div>
+          <h1>Majhne ideje.<br><span>Velike možnosti.</span></h1>
+          <p>Odkrij uporabne in unikatne izdelke, izdelane s 3D-tiskom. Od urejenega delovnega prostora do dodatkov, ki polepšajo vsakdan.</p>
+          <div class="actions">
+            <a class="btn btn-primary" href="#izdelki">Oglej si izdelke <span aria-hidden="true">↗</span></a>
+            <a class="btn btn-secondary" href="#kontakt">Izdelek po meri</a>
+          </div>
+        </div>
+        <div class="hero-art" aria-label="Grafična ilustracija 3D-natisnjenega izdelka" role="img">
+          <div class="cube"></div>
+          <div class="art-tag">Narejeno plast za plastjo</div>
+        </div>
+      </div>
+    </section>
+
+    <div class="trust">
+      <div class="wrap trust-row">
+        <div class="trust-item"><b>✦</b> Unikatni izdelki</div>
+        <div class="trust-item"><b>⌁</b> Možnost prilagoditev</div>
+        <div class="trust-item"><b>▣</b> Natančen 3D-tisk</div>
+      </div>
+    </div>
+
+    <section id="izdelki">
+      <div class="wrap">
+        <div class="section-head">
+          <div><div class="eyebrow">Izbrana ponudba</div><h2>Najdi svoj naslednji<br>najljubši izdelek.</h2></div>
+          <p>Prebrskaj kategorije ali poišči točno tisto, kar potrebuješ. Prikazani izdelki in cene so primeri, ki jih lahko prilagodiš svoji ponudbi.</p>
+        </div>
+        <div class="toolbar">
+          <label class="search-box"><span aria-hidden="true">⌕</span><input id="search" type="search" placeholder="Išči izdelke..." aria-label="Išči izdelke"></label>
+          <select class="sort-select" id="sort" aria-label="Razvrsti izdelke">
+            <option value="featured">Priporočeno</option>
+            <option value="low">Cena: od najnižje</option>
+            <option value="high">Cena: od najvišje</option>
+            <option value="az">Ime: A–Ž</option>
+          </select>
+        </div>
+        <div class="filters" id="filters" aria-label="Kategorije izdelkov">
+          <button class="filter active" data-category="Vse">Vsi izdelki</button>
+          <button class="filter" data-category="Organizacija">Organizacija</button>
+          <button class="filter" data-category="Dom in dekor">Dom in dekor</button>
+          <button class="filter" data-category="Dodatki">Dodatki</button>
+          <button class="filter" data-category="Po meri">Po meri</button>
+        </div>
+        <div class="products" id="products" aria-live="polite"></div>
+      </div>
+    </section>
+
+    <section class="custom">
+      <div class="wrap custom-grid">
+        <div><div class="eyebrow">Imaš svojo idejo?</div><h2>Izdelamo lahko tudi<br>nekaj čisto tvojega.</h2><p>Posebna oblika, napis, barva ali praktičen del, ki ga ne najdeš nikjer drugje? Opiši svojo zamisel in skupaj poiščimo rešitev.</p></div>
+        <a class="btn btn-primary" href="#kontakt">Povprašaj za izdelek <span aria-hidden="true">→</span></a>
+      </div>
+    </section>
+
+    <section id="o-nas">
+      <div class="wrap">
+        <div class="eyebrow">Zakaj 3D-tisk?</div>
+        <h2>Prilagojeno tvojemu svetu.</h2>
+        <div class="about-grid">
+          <article class="about-card"><div class="icon">🧩</div><h3>Praktično</h3><p>Premišljeni pripomočki, ki pomagajo bolje izkoristiti prostor in poenostaviti vsakdan.</p></article>
+          <article class="about-card"><div class="icon">🎨</div><h3>Po tvoje</h3><p>Pri številnih zamislih lahko prilagodimo barvo, velikost ali dodamo osebni napis.</p></article>
+          <article class="about-card"><div class="icon">🛠️</div><h3>Ustvarjeno s skrbjo</h3><p>Vsak model je pripravljen za izdelavo plast za plastjo, z mislijo na namen uporabe.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section id="kontakt" style="padding-top: 20px">
+      <div class="wrap">
+        <div class="section-head">
+          <div><div class="eyebrow">Povežimo se</div><h2>Začni s svojo idejo.</h2></div>
+          <p>Za naročila, vprašanja ali izdelke po meri uporabi spodnji kontakt. Pred objavo zamenjaj nadomestni naslov s svojo pravo e-pošto.</p>
+        </div>
+        <a class="btn btn-primary" href="mailto:tvoj@email.si?subject=Povpra%C5%A1evanje%20o%203D-tisku">Piši nam <span aria-hidden="true">↗</span></a>
+        <p style="color:var(--muted);font-size:.85rem;margin-top:12px">Nadomestni kontakt: <span style="color:var(--orange-light)">tvoj@email.si</span></p>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap footer-row">
+      <a class="brand" href="#domov"><span class="brand-mark">L</span><span>Layer<span>Lab</span></span></a>
+      <span>© <span id="year"></span> LayerLab. Vse pravice pridržane.</span>
+      <a class="contact-link" href="#kontakt">Kontakt</a>
+    </div>
+  </footer>
+  <div class="notice" id="notice" role="status" aria-live="polite"></div>
+
+  <script>
+    // Uredi imena, opise, kategorije, cene in ikone izdelkov v tem seznamu.
+    const productsData = [
+      { id: 1, name: "Namizni organizator", category: "Organizacija", price: 12.90, icon: "🗂️", description: "Pospravi pisala, drobnarije in pripomočke na enem mestu." },
+      { id: 2, name: "Stojalo za telefon", category: "Dodatki", price: 8.50, icon: "📱", description: "Praktično stojalo za udobnejši ogled zaslona na mizi." },
+      { id: 3, name: "Modularni lonček", category: "Dom in dekor", price: 9.90, icon: "🪴", description: "Minimalističen dodatek za rastline ali shranjevanje drobnarij." },
+      { id: 4, name: "Držalo za slušalke", category: "Organizacija", price: 10.90, icon: "🎧", description: "Naj bodo slušalke vedno pospravljene in pri roki." },
+      { id: 5, name: "Obesek z imenom", category: "Po meri", price: 5.00, icon: "🔑", description: "Preprost osebni obesek z imenom ali kratkim napisom." },
+      { id: 6, name: "Geometrijski okras", category: "Dom in dekor", price: 14.90, icon: "🔶", description: "Sodoben dekorativni kos za polico, mizo ali darilo." },
+      { id: 7, name: "Kavelj za pripomočke", category: "Organizacija", price: 4.90, icon: "🪝", description: "Majhen pripomoček za bolj urejen delovni ali hobi kotiček." },
+      { id: 8, name: "Oznaka po meri", category: "Po meri", price: 6.50, icon: "🏷️", description: "Oznaka z izbranim besedilom, simbolom ali preprosto obliko." },
+      { id: 9, name: "Obesek za ključe", category: "Dodatki", price: 4.50, icon: "🧡", description: "Lahek in barvit dodatek za ključe ali torbo." }
+    ];
+
+    const productsEl = document.getElementById("products");
+    const searchEl = document.getElementById("search");
+    const sortEl = document.getElementById("sort");
+    const filterButtons = [...document.querySelectorAll(".filter")];
+    const noticeEl = document.getElementById("notice");
+    let activeCategory = "Vse";
+    let noticeTimer;
+
+    const euro = value => new Intl.NumberFormat("sl-SI", { style: "currency", currency: "EUR" }).format(value);
+
+    function renderProducts() {
+      const query = searchEl.value.trim().toLocaleLowerCase("sl");
+      let items = productsData.filter(product => {
+        const matchesCategory = activeCategory === "Vse" || product.category === activeCategory;
+        const matchesQuery = `${product.name} ${product.category} ${product.description}`.toLocaleLowerCase("sl").includes(query);
+        return matchesCategory && matchesQuery;
+      });
+      if (sortEl.value === "low") items.sort((a, b) => a.price - b.price);
+      if (sortEl.value === "high") items.sort((a, b) => b.price - a.price);
+      if (sortEl.value === "az") items.sort((a, b) => a.name.localeCompare(b.name, "sl"));
+      if (!items.length) {
+        productsEl.innerHTML = '<div class="empty"><strong>Ni zadetkov.</strong><br>Poskusi drugo iskalno besedo ali izberi drugo kategorijo.</div>';
+        return;
+      }
+      productsEl.innerHTML = items.map(product => `
+        <article class="product">
+          <div class="product-visual">
+            <span class="number">3D-TISK</span>
+            <span class="emoji" aria-hidden="true">${product.icon}</span>
+          </div>
+          <div class="product-body">
+            <div class="category-label">${product.category}</div>
+            <h3>${product.name}</h3>
+            <p>${product.description}</p>
+            <div class="product-bottom">
+              <div class="price">${euro(product.price)} <small>/ kos</small></div>
+              <button class="add-btn" type="button" data-product="${product.id}">Povprašaj ↗</button>
+            </div>
+          </div>
+        </article>`).join("");
+    }
+
+    function showNotice(message) {
+      noticeEl.textContent = message;
+      noticeEl.classList.add("show");
+      clearTimeout(noticeTimer);
+      noticeTimer = setTimeout(() => noticeEl.classList.remove("show"), 3200);
+    }
+
+    filterButtons.forEach(button => {
+      button.addEventListener("click", () => {
+        activeCategory = button.dataset.category;
+        filterButtons.forEach(item => item.classList.toggle("active", item === button));
+        renderProducts();
+      });
+    });
+    searchEl.addEventListener("input", renderProducts);
+    sortEl.addEventListener("change", renderProducts);
+    productsEl.addEventListener("click", event => {
+      const button = event.target.closest("[data-product]");
+      if (!button) return;
+      const product = productsData.find(item => item.id === Number(button.dataset.product));
+      const subject = encodeURIComponent(`Povpraševanje: ${product.name}`);
+      const body = encodeURIComponent(`Pozdravljeni,\n\nZanima me izdelek: ${product.name}\nOkvirna prikazana cena: ${euro(product.price)} / kos\n\nProsim za več informacij.\n\nHvala!`);
+      window.location.href = `mailto:tvoj@email.si?subject=${subject}&body=${body}`;
+      showNotice("Pred objavo zamenjaj tvoj@email.si s svojo kontaktno e-pošto.");
+    });
+    document.getElementById("year").textContent = new Date().getFullYear();
+    renderProducts();
+  </script>
+</body>
+</html>
